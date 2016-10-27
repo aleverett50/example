@@ -1,12 +1,12 @@
 <?php
 
 
-class Validation extends ObjectModel {
+class Validation {
 
 
 			public static function required($field, $string){
 				
-					if(empty( $string )){
+					if( $string == '' ){
 					
 						$field = str_replace('_id', ' ', $field);
 						$field = str_replace('_', ' ', $field);
