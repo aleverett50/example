@@ -118,8 +118,6 @@ class Order extends ObjectModel{
 			foreach( $query as $row ){
 			
 				$stock = $this->execute("SELECT * FROM products WHERE id = ?  ", [$row->product_id])[0]->stock_amount;
-
-				Mail::send('alexe@wts-group.com', $stock, 'Product ID: '.$row->product_id, COMPANY_NAME);
 			
 				$this->updateRow('products', ['stock_amount' => $stock - $row->quantity], 'id = :id LIMIT 1 ', [ 'id' => $row->product_id ] );
 			
