@@ -62,18 +62,6 @@ if( !$user->uniqueId() ){
 }
 
 
-if($user->auth() && $user->uniqueId()){
-
-	$cartObj->updateCartWithMemberType($user->auth()->member_type);
-
-}
-
-if(!$user->auth() && $user->uniqueId()){
-
-	$cartObj->updateCartWithNoMemberType();
-
-}
-
 function redirect($url, $message = null, $type = null){
 
 	if($message){
@@ -85,19 +73,3 @@ function redirect($url, $message = null, $type = null){
 header('Location: '.$url); exit;
 
 }
-
-function addOrdinalNumberSuffix($num) {
-  if (!in_array(($num % 100),array(11,12,13))){
-    switch ($num % 10) {
-      case 1:  return $num.'st';
-      case 2:  return $num.'nd';
-      case 3:  return $num.'rd';
-    }
-  }
-  return $num.'th';
-}
-
-
-
-
-
