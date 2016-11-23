@@ -36,13 +36,18 @@ class Order extends ObjectModel
 		
 		/*  IF CUSTOMER IS VIEWING ORDERS  */
 	
-	return $this->execute("SELECT *, orders.id AS order_id, orders.created_at AS order_date FROM orders WHERE user_id = ? AND deleted_at IS NULL AND status != 'Pending' ORDER BY id DESC ", [$this->user->auth()->id]);
+	return $this->execute("SELECT *, orders.id AS order_id, orders.created_at AS order_date 
+					FROM orders WHERE user_id = ? AND deleted_at IS NULL AND status != 'Pending' 
+					ORDER BY id DESC ", [$this->user->auth()->id]);
 	
 	} else {
 	
 		/*  IF ADMIN IS VIEWING ORDERS  */
 
-	return $this->execute("SELECT *, orders.id AS order_id, orders.created_at AS order_date FROM orders LEFT JOIN users ON users.id = orders.user_id WHERE orders.status = ? AND orders.deleted_at IS NULL AND orders.status != 'Pending'  ORDER BY orders.id DESC  ", [$status] );
+	return $this->execute("SELECT *, orders.id AS order_id, orders.created_at AS order_date 
+					FROM orders LEFT JOIN users ON users.id = orders.user_id 
+					WHERE orders.status = ? AND orders.deleted_at IS NULL AND orders.status != 'Pending'  
+					ORDER BY orders.id DESC  ", [$status] );
 
 	}
 
@@ -162,7 +167,9 @@ class Order extends ObjectModel
 	
 	}
 	
-	$html = "<p>Dear ".ucwords($user_row->first_name).",<br /><br />Thank you for your order from Aire Velo Bearings. ".$promo_code." Your order number is ".$order_number.".<br /><br />Please see below details of your order.<br /><br /></p>";
+	$html = "<p>Dear ".ucwords($user_row->first_name).",<br /><br />
+	Thank you for your order from Aire Velo Bearings. ".$promo_code." 
+	Your order number is ".$order_number.".<br /><br />Please see below details of your order.<br /><br /></p>";
 
 	$html .= @file_get_contents('cache/'.$order_number.'.txt');
 	
@@ -170,11 +177,27 @@ class Order extends ObjectModel
 	
 	$shipping_type = '';
 	
-	if($order_row->shipping == "0.00"){ $shipping_type = 'Royal mail 1st class post'; } else 
-	if($order_row->shipping == "3.00"){ $shipping_type = 'Royal mail 1st class signed for post'; } else 
-	if($order_row->shipping == "12.00"){ $shipping_type = 'Royal Mail International Tracked &amp; Signed (2-5 days)'; } else 
-	if($order_row->shipping == "18.00"){ $shipping_type = 'DHL Europe Tracked &amp; Signed (1-3 days)'; } else 
-	if($order_row->shipping == "35.00"){ $shipping_type = 'DHL Rest of World Tracked &amp; Signed (3-5 days)'; }
+		if($order_row->shipping == "0.00"){
+		
+			$shipping_type = 'Royal mail 1st class post';
+		
+		} elseif ($order_row->shipping == "3.00"){
+		
+			$shipping_type = 'Royal mail 1st class signed for post';
+		
+		} elseif ($order_row->shipping == "12.00"){
+		
+			$shipping_type = 'Royal Mail International Tracked &amp; Signed (2-5 days)';
+		
+		} elseif ($order_row->shipping == "18.00"){
+		
+			$shipping_type = 'DHL Europe Tracked &amp; Signed (1-3 days)';
+		
+		} elseif ($order_row->shipping == "35.00"){
+		
+			$shipping_type = 'DHL Rest of World Tracked &amp; Signed (3-5 days)';
+		
+		}
 	
 	$promo_code = '';
 
@@ -184,7 +207,11 @@ class Order extends ObjectModel
 	
 	}
 	
-$html .= "Shipping Type: ".$shipping_type." ".$promo_code." <br /><br /><center>----------------------------</center><br /><br />".$user_row->first_name." ".$user_row->last_name."<br />".$user_row->address_1."<br />".$user_row->address_2."<br />".$user_row->town."<br />".$user_row->postcode;
+		$html .= "Shipping Type: ".$shipping_type." ".$promo_code." <br /><br />
+		<center>----------------------------</center><br /><br />
+		".$user_row->first_name." ".$user_row->last_name."<br />
+		".$user_row->address_1."<br />".$user_row->address_2."
+		<br />".$user_row->town."<br />".$user_row->postcode;
 	
 	Mail::send('sales@', $html, 'Order Confirmation - '.$order_number, COMPANY_NAME);
 
@@ -206,7 +233,11 @@ $html .= "Shipping Type: ".$shipping_type." ".$promo_code." <br /><br /><center>
 	
 	$user_row = $this->user->find($order_row->user_id);
 	
-	$html = "<p>Dear ".ucwords($user_row->first_name).",<br /><br />Your order ".$order_number." has been dispatched to;<br /><br />".$user_row->first_name." ".$user_row->last_name."<br />".$user_row->address_1."<br />".$user_row->address_2."<br />".$user_row->town."<br />".$user_row->postcode."<br /><br /></p>";
+	$html = "<p>Dear ".ucwords($user_row->first_name).",<br /><br />
+	Your order ".$order_number." has been dispatched to;<br /><br />
+	".$user_row->first_name." ".$user_row->last_name."<br />
+	".$user_row->address_1."<br />".$user_row->address_2."<br />
+	".$user_row->town."<br />".$user_row->postcode."<br /><br /></p>";
 
 	$html .= @file_get_contents('../cache/'.$order_number.'.txt');
 	

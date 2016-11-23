@@ -31,7 +31,9 @@ class Cart extends ObjectModel
     public function getAll()
     {
 		
-	return $this->execute("SELECT *, cart.id AS cart_id FROM cart LEFT JOIN products ON products.id = cart.product_id WHERE cart.unique_id = ? AND cart.quantity > '0' AND cart.deleted_at IS NULL ", [$this->uniqueID] );
+	return $this->execute("SELECT *, cart.id AS cart_id FROM cart 
+					LEFT JOIN products ON products.id = cart.product_id 
+					WHERE cart.unique_id = ? AND cart.quantity > '0' AND cart.deleted_at IS NULL ", [$this->uniqueID] );
 		
     }
 		
@@ -223,7 +225,7 @@ class Cart extends ObjectModel
 	return redirect('basket.php', 'The item has been deleted');
 		
     }
-		
+
 
     public function updateCart()
     {

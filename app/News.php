@@ -76,10 +76,13 @@ class News extends ObjectModel
 
 			$size = getimagesize($_FILES[$key]['tmp_name']);
 
-			if(empty($size)){ return redirect( 'account.php?page=news-item&action=edit&id='.$id, 'You must upload a valid image', 'e' ); }
+			if(empty($size)){
+			
+				return redirect( 'account.php?page=news-item&action=edit&id='.$id, 'You must upload a valid image', 'e' );
+			
+			}
 
-			if ( $ext != "jpg" && $ext != "png" && $ext != "gif" && $ext != "jpeg" )
-			{ 
+			if ( $ext != "jpg" && $ext != "png" && $ext != "gif" && $ext != "jpeg" ){ 
 			
 				return redirect( 'account.php?page=news-item&action=edit&id='.$id, 'JPG, PNG or GIF extensions only', 'e' );
 			

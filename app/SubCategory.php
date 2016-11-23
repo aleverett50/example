@@ -12,7 +12,9 @@ class SubCategory extends ObjectModel
     public function getAll()
     {
 
-	return $this->execute('SELECT *, sub_categories.title AS sub_category_title, sub_categories.id AS sub_category_id  FROM sub_categories LEFT JOIN categories ON categories.id = sub_categories.category_id WHERE sub_categories.deleted_at IS NULL ORDER BY sub_categories.order ASC ', []);
+	return $this->execute('SELECT *, sub_categories.title AS sub_category_title, sub_categories.id AS sub_category_id  
+					FROM sub_categories LEFT JOIN categories ON categories.id = sub_categories.category_id 
+					WHERE sub_categories.deleted_at IS NULL ORDER BY sub_categories.order ASC ', []);
 	
     }
 

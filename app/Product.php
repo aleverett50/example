@@ -5,14 +5,27 @@ namespace App;
 class Product extends ObjectModel{
 
     protected $table = 'products';
-    protected $fillable = ['title', 'product_code', 'size', 'category_id', 'sub_category_id', 'price', 'description', 'inner_diameter', 'outer_diameter', 'thickness', 'stock_amount'];
-    protected $rules = ['title' => 'required', 'product_code' => 'required', 'size' => 'required', 'stock_amount' => 'required', 'category_id' => 'required', 'sub_category_id' => 'required', 'price' => 'required', 'description' => 'required'];
+    protected $fillable = ['title', 'product_code', 'size', 'category_id', 'sub_category_id', 'price', 'description'];
+    protected $rules = [
+					'title' => 'required', 
+					'product_code' => 'required', 
+					'size' => 'required', 
+					'stock_amount' => 'required', 
+					'category_id' => 'required', 
+					'sub_category_id' => 'required', 
+					'price' => 'required',
+					'description' => 'required'
+			];
 
 
     public function getAll()
     {
 
-	return $this->execute('SELECT *, products.title AS product_title, categories.title AS category_title, products.id AS product_id FROM products LEFT JOIN categories ON categories.id = products.category_id LEFT JOIN sub_categories ON sub_categories.id = products.sub_category_id WHERE products.deleted_at IS NULL ORDER BY sub_categories.title ASC, products.product_code ASC ', [] );
+	return $this->execute('SELECT *, products.title AS product_title, categories.title AS category_title, 
+					products.id AS product_id FROM products 
+					LEFT JOIN categories ON categories.id = products.category_id 
+					LEFT JOIN sub_categories ON sub_categories.id = products.sub_category_id 
+					WHERE products.deleted_at IS NULL ORDER BY sub_categories.title ASC, products.product_code ASC ', [] );
 
     }
     
@@ -28,7 +41,9 @@ class Product extends ObjectModel{
     public function getAllBySubCategory($subCategoryId)
     {
 
-	return $this->execute("SELECT * FROM products WHERE sub_category_id = ? AND products.deleted_at IS NULL ORDER BY products.product_code ASC ", [$subCategoryId] );		
+	return $this->execute("SELECT * FROM products WHERE 
+					sub_category_id = ? AND products.deleted_at IS NULL 
+					ORDER BY products.product_code ASC ", [$subCategoryId] );		
 
     }
 		
@@ -36,7 +51,9 @@ class Product extends ObjectModel{
     public function search($search)
     {
 		
-	return $this->execute("SELECT * FROM products WHERE ( title LIKE ? OR product_code LIKE ? ) AND products.deleted_at IS NULL ORDER BY products.product_code ASC ", ["%".$search."%", "%".$search."%"] );		
+	return $this->execute("SELECT * FROM products WHERE 
+					( title LIKE ? OR product_code LIKE ? ) AND products.deleted_at IS NULL 
+					ORDER BY products.product_code ASC ", ["%".$search."%", "%".$search."%"] );		
 		
     }
 		
@@ -92,7 +109,9 @@ class Product extends ObjectModel{
     public function getProductById($id)
     {
 
-	return $this->execute("SELECT *, products.id AS product_id, products.title AS product_title FROM products LEFT JOIN sub_categories ON sub_categories.id = products.sub_category_id WHERE products.id = ?  ", [$id] );		
+	return $this->execute("SELECT *, products.id AS product_id, products.title AS product_title 
+					FROM products LEFT JOIN sub_categories ON sub_categories.id = products.sub_category_id 
+					WHERE products.id = ?  ", [$id] );		
 
     }
 
@@ -167,14 +186,41 @@ class Product extends ObjectModel{
 
 			$size = getimagesize($_FILES[$key]['tmp_name']);
 
-			if(empty($size)){ return redirect( 'account.php?page=product&action=edit&id='.$id, 'You must upload a valid image', 'e' ); }
+				if(empty($size)){
+				
+					return redirect( 'account.php?page=product&action=edit&id='.$id, 'You must upload a valid image', 'e' );
+				
+				}
 
-	if ( $ext != "jpg" && $ext != "png" && $ext != "gif" ){ return redirect( 'account.php?page=product&action=edit&id='.$id, 'JPG, PNG or GIF extensions only', 'e' );  }
+				if ( $ext != "jpg" && $ext != "png" && $ext != "gif" ){
+				
+					return redirect( 'account.php?page=product&action=edit&id='.$id, 'JPG, PNG or GIF extensions only', 'e' );
+				
+				}
 			
-				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.jpg')){ unlink( '../product-images/'.$id.'-'.$fileNum.'.jpg' ); }
-				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.png')){ unlink( '../product-images/'.$id.'-'.$fileNum.'.png' ); }
-				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.gif')){ unlink( '../product-images/'.$id.'-'.$fileNum.'.gif' ); }
-				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.jpeg')){ unlink( '../product-images/'.$id.'-'.$fileNum.'.jpeg' ); }
+				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.jpg')){ 
+				
+					unlink( '../product-images/'.$id.'-'.$fileNum.'.jpg' );
+					
+				}
+				
+				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.png')){
+				
+					unlink( '../product-images/'.$id.'-'.$fileNum.'.png' );
+				
+				}
+				
+				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.gif')){
+				
+					unlink( '../product-images/'.$id.'-'.$fileNum.'.gif' );
+				
+				}
+				
+				if(file_exists('../product-images/'.$id.'-'.$fileNum.'.jpeg')){
+				
+					unlink( '../product-images/'.$id.'-'.$fileNum.'.jpeg' );
+				
+				}
 			
 				move_uploaded_file($_FILES[$key]['tmp_name'], '../product-images/'.$id.'-'.$fileNum.'.'.$ext);
 

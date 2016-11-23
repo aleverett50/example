@@ -9,7 +9,15 @@ class User extends ObjectModel
 
     protected $userID = false;
     protected $table = 'users';
-    protected $rules = ['email' => 'required', 'first_name' => 'required', 'last_name' => 'required', 'address_1' => 'required', 'town' => 'required', 'postcode' => 'required'];
+    protected $rules = [
+					'email' => 'required',
+					'first_name' => 'required',
+					'last_name' => 'required',
+					'address_1' => 'required',
+					'town' => 'required',
+					'postcode' => 'required'
+				];
+	
     protected $fillable = ['email', 'password', 'first_name', 'last_name', 'address_1', 'address_2', 'phone', 'town', 'postcode', 'country' ];
     protected $what_you_ride;
     protected $member_type;
@@ -112,7 +120,9 @@ class User extends ObjectModel
 	
 	}
 	
-	$result = $this->execute(' SELECT * FROM users WHERE email = ? AND id != ? AND password IS NOT NULL AND deleted_at IS NULL ', [ $_POST['email'], $this->userID ] );
+	$result = $this->execute(' SELECT * FROM users 
+					WHERE email = ? AND id != ? AND password IS NOT NULL 
+					AND deleted_at IS NULL ', [ $_POST['email'], $this->userID ] );
 
 	if( count($result) ){
 	
@@ -131,14 +141,32 @@ class User extends ObjectModel
 
 	if($memberType == 1){
 	
-		$this->rules = ['first_name' => 'required', 'last_name' => 'required', 'team' => 'required', 'email' => 'required|unique:users', 'password' => 'required'];
+		$this->rules = [
+					'first_name' => 'required', 
+					'last_name' => 'required', 
+					'team' => 'required', 
+					'email' => 'required|unique:users', 
+					'password' => 'required'
+				];
+
 		$this->fillable = ['email', 'password', 'first_name', 'last_name', 'team', 'what_you_ride', 'member_type'];
 
 		$this->what_you_ride = isset($_POST['what_you_ride']) ? json_encode($_POST['what_you_ride']) : '';
 	
 	} else {
 	
-		$this->rules = ['first_name' => 'required', 'last_name' => 'required', 'company_name' => 'required', 'vat_number' => 'required','company_reg_number' => 'required', 'team' => 'required', 'shop_riders' => 'required', 'email' => 'required|unique:users', 'password' => 'required'];
+		$this->rules = [
+					'first_name' => 'required', 
+					'last_name' => 'required', 
+					'company_name' => 'required', 
+					'vat_number' => 'required',
+					'company_reg_number' => 'required', 
+					'team' => 'required', 
+					'shop_riders' => 'required', 
+					'email' => 'required|unique:users', 
+					'password' => 'required'
+				];
+
 		$this->fillable = ['email', 'password', 'first_name', 'last_name', 'team', 'company_name', 'vat_number', 'company_reg_number', 'shop_riders', 'member_type'];
 	
 	}
