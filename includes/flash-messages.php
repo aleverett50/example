@@ -1,5 +1,8 @@
 <?php
 
+use App\Helpers\Validation;
+use App\Helpers\Tools;
+
 if( count( Validation::errors() ) ){  
 
 	print '<div class="alert alert-danger">';

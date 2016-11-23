@@ -1,3 +1,4 @@
+<?php require __DIR__'/includes/page-titles.php'; ?>
 <!DOCTYPE html>
 <html>  
 <head>
@@ -5,12 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <title><?= $title ?></title>
-    <?php if (isset($page_metadata['description'])): ?>
-    <meta name="description" content="<?= $page_metadata['description']; ?>" />
-	<?php endif; ?>
-	<?php if (isset($page_metadata['keywords'])): ?>
-    <meta name="keywords" content="<?= $page_metadata['keywords']; ?>" />
-	<?php endif; ?>
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css"> 
 	<link rel="stylesheet" href="assets/fancybox/jquery.fancybox.css?v=2.1.5" media="screen"> 
@@ -58,43 +53,16 @@ $(function(){
 	<div class="container-fluid bg-top-grey">
 	
 		<div class="container padding-5">
-		
-			<?php if($detect->isMobile()){  ?>
-		
-			<div class="row text-center">
-		
-			<i class="fa fa-phone"></i>  <br />
-			<i class="fa fa-envelope"></i> <br />
-			<i class="fa fa-user"></i> <?php if($user->auth()){ print "<a id='show-account-links' href='#'>My Account</a>"; } else { print "<a href='login.php'>Login</a>"; } ?>
-			<i style="margin-left:50px" class="fa fa-shopping-basket"></i> <a href="basket.php">Basket</a>
-			
-			<ul id="account-links">
-			<li><a href="account.php?page=details">My Details</a></li>
-			<li><a href="account.php?page=orders">My Orders</a></li>
-			<li><a href="account.php?page=change-password">Change Password</a></li>
-			<li><a href="login.php?log=out">Logout</a></li>
-			</ul>
-			
- 			</div>
-			
-			
-			
-			<?php } else { ?>
 			
 			<div class="row">
 		
 
 			<div class="green-circle"><i class="fa fa-phone fatop"></i></div> 
-			<div class="float-left">  </div>  
+			<div class="float-left"> 0113 256 5676 </div>  
 			<div class="green-circle"><i style="font-size:0.8em;position:absolute;top:4px;left:5px" class="fa fa-envelope fatop"></i> </div> 
-			<div class="float-left">  </div>
+			<div class="float-left"> info@airevelobearings.com </div>
 			
-			<?php if( $detect->isTablet() ){ ?>
-			
-			<div class="show-on-portrait-tablet"><div class="green-circle"><i style="font-size:0.8em;position:absolute;top:5px;left:4px" class="fa fa-shopping-basket fatop"></i></div> 
-			<div class="float-left"> <a href="basket.php">View Basket >></a></div> </div>
-			
-			<?php } ?>
+
 			
 					<?php if( $user->auth() ){ ?>
 					
@@ -116,8 +84,7 @@ $(function(){
 						<?php } ?>
 			
 			</div>
-			
-			<?php }  ?>
+
 		
 		</div>
 	
@@ -182,7 +149,7 @@ $(function(){
                 <ul class="nav navbar-nav main-colour">
  	 
 		<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">BEARINGS</a>
 		<ul class="dropdown-menu">
 		<?php
 		
@@ -220,3 +187,12 @@ $(function(){
     </div>
     
 </header>        </div>
+
+
+
+
+
+
+
+
+

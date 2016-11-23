@@ -1,6 +1,8 @@
 <?php
 
-include(dirname(__FILE__).'/includes/config.php');
+ob_start();
+
+require __DIR__.'/includes/config.php';
 
 $user->checkAuth();
 
@@ -12,16 +14,17 @@ if( $user->isAdmin() ){
 
 if(empty($_GET['page'])){ redirect('account.php?page=home'); }
 
-
 $page = $_GET['page'];
 
-include(dirname(__FILE__).'/header.php'); ?>
+require __DIR__.'/header.php';
+
+?>
 
             <div class="container">
 
 <?php
 
-include(dirname(__FILE__).'/includes/flash-messages.php');
+require __DIR__.'/includes/flash-messages.php';
 		
 		switch($_GET['page']){
 
@@ -55,4 +58,4 @@ include(dirname(__FILE__).'/includes/flash-messages.php');
             </div>
 
 
-<?php include(dirname(__FILE__).'/footer.php'); ?>
+<?php require __DIR__.'/footer.php'; ?>
