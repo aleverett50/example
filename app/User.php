@@ -1,4 +1,4 @@
-<?php	
+<?php
 
 namespace App;
 
@@ -23,7 +23,7 @@ class User extends ObjectModel
 		$this->userID = $_SESSION[SALT.'session'];
 
 	
-	} else if( !empty($_COOKIE[SALT.'session']) && $_COOKIE[SALT.'session'] > 0 ) {
+	} elseif( !empty($_COOKIE[SALT.'session']) && $_COOKIE[SALT.'session'] > 0 ) {
 	
 		$this->userID = $_COOKIE[SALT.'session'];
 	
@@ -48,7 +48,7 @@ class User extends ObjectModel
 	
 		return $_COOKIE[SALT.'unique'];
 	
-	} else if( isset($_SESSION[SALT.'unique']) && !empty($_SESSION[SALT.'unique']) && $_SESSION[SALT.'unique'] != '' ){
+	} elseif( isset($_SESSION[SALT.'unique']) && !empty($_SESSION[SALT.'unique']) && $_SESSION[SALT.'unique'] != '' ){
 	
 		return $_SESSION[SALT.'unique'];
 	
@@ -329,12 +329,17 @@ return isset($_POST['redirect']) ? redirect( $_POST['redirect'], 'Your login cre
     public function updateCustomer($user_id = null)
     {
 
-	$id = $user_id == null ? $this->userID : $user_id;	/* IF CUSTOMER IS UPDATING OR ADMIN IS UPDATING THE CUSTOMER */
+	/* IF CUSTOMER IS UPDATING OR ADMIN IS UPDATING THE CUSTOMER */
+	
+	$id = $user_id == null ? $this->userID : $user_id;
 
 	$this->rules['email'] = 'required';
 	unset($this->rules['password']);
 	array_push($this->fillable,'team');
-	unset($this->fillable[1]);  					/*  REMOVE PASSWORD FILLABLE FIELD  */
+	
+	/*  REMOVE PASSWORD FILLABLE FIELD  */
+	
+	unset($this->fillable[1]);
 	
 	$result = $this->execute(' SELECT * FROM users WHERE email = ? AND id != ? AND password IS NOT NULL AND deleted_at IS NULL ', [ $_POST['email'], $id ] );
 

@@ -1,4 +1,4 @@
-<?php	
+<?php
 
 namespace App\Helpers;
 
@@ -67,7 +67,7 @@ class Mail
     public static function emailFooter()
     {
 
-	return "<br /><br /><br /><br />Thanks<br /><br />".COMPANY_NAME." <br />34 Bradford Road<br />Stanningley<br />Leeds<br />LS28 6DD<br /><br />Phone: 0113 256 5676<br />General enquiries: <a href='mailto:info@'>info@</a><br />Returns enquiries: <a href='mailto:returns@'>returns@</a><br /><div style='float:left;width:100%;height:3px; background:".MAIN_COLOUR.";margin-top:20px'></div></div>";
+	return "<br /><br /><br /><br />Thanks<br /><br />".COMPANY_NAME." <br />Address<br />Stanningley<br />Leeds<br />LS11 1AA<br /><br />Phone: 0113 111 2233<br />General enquiries: <a href='mailto:info@'>info@</a><br />Returns enquiries: <a href='mailto:returns@'>returns@</a><br /><div style='float:left;width:100%;height:3px; background:".MAIN_COLOUR.";margin-top:20px'></div></div>";
 
     }
 

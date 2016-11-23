@@ -1,4 +1,4 @@
-<?php	
+<?php
 
 namespace App\Helpers;
 
@@ -96,10 +96,21 @@ class Tools
     public static function formatPostcode($postcode)
     {
 
-	$postcode = preg_replace("/[^A-Za-z0-9]/", '', $postcode);			//  Remove any spaces from postcode
-	$postcode = strtoupper($postcode);							//  Make it capitals
-	$postcodelength = strlen($postcode);							//  See how many characters are in postcode
-	$postcode = substr_replace($postcode, " ", ($postcodelength - 3), 0);		//  Put a space before last 3 digits
+	/*  Remove any spaces from postcode  */
+
+	$postcode = preg_replace("/[^A-Za-z0-9]/", '', $postcode);
+	
+	/*  Make it capitals  */
+	
+	$postcode = strtoupper($postcode);
+	
+	/*  See how many characters are in postcode  */
+	
+	$postcodelength = strlen($postcode);
+	
+	/*  Put a space before last 3 digits  */
+	
+	$postcode = substr_replace($postcode, " ", ($postcodelength - 3), 0);
 	
 	return $postcode; 
 

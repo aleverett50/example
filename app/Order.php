@@ -1,4 +1,4 @@
-<?php	
+<?php
 
 namespace App;
 
@@ -142,11 +142,17 @@ class Order extends ObjectModel
     public function emailOrder($order_number)
     {
 
-	$this->id = $order_number - 100000;				/* ORDER ID */
+	/* ORDER ID */
+
+	$this->id = $order_number - 100000;
 	
-	$order_row = $this->find($this->id);				/* ROW WITH ORDER DETAILS */
+	/* ROW WITH ORDER DETAILS */
 	
-	$user_row = $this->user->find($order_row->user_id);	/* ROW WITH USER DETAILS */
+	$order_row = $this->find($this->id);
+	
+	/* ROW WITH USER DETAILS */
+	
+	$user_row = $this->user->find($order_row->user_id);
 	
 	$promo_code = '';
 
@@ -188,11 +194,17 @@ $html .= "Shipping Type: ".$shipping_type." ".$promo_code." <br /><br /><center>
     public function emailStatus($order_number)
     {
 
-	$this->id = $order_number - 100000;				/* ORDER ID */
+	/* ORDER ID */
+
+	$this->id = $order_number - 100000;
 	
-	$order_row = $this->find($this->id);				/* ROW WITH ORDER DETAILS */
+	/* ROW WITH ORDER DETAILS */
 	
-	$user_row = $this->user->find($order_row->user_id);	/* ROW WITH USER DETAILS */
+	$order_row = $this->find($this->id);
+	
+	/* ROW WITH USER DETAILS */
+	
+	$user_row = $this->user->find($order_row->user_id);
 	
 	$html = "<p>Dear ".ucwords($user_row->first_name).",<br /><br />Your order ".$order_number." has been dispatched to;<br /><br />".$user_row->first_name." ".$user_row->last_name."<br />".$user_row->address_1."<br />".$user_row->address_2."<br />".$user_row->town."<br />".$user_row->postcode."<br /><br /></p>";
 
@@ -218,7 +230,9 @@ $html .= "Shipping Type: ".$shipping_type." ".$promo_code." <br /><br /><center>
 
 	if( $this->user->auth() ){
 	
-		$this->user->updateCustomerFromCheckout( array('password') );	/* PASS THE RULES TO UNSET ON USER CLASS */
+		/* PASS THE RULES TO UNSET ON USER CLASS */
+	
+		$this->user->updateCustomerFromCheckout( array('password') );
 		
 		$this->user_id = $this->user->auth()->id;
 	
@@ -258,7 +272,9 @@ $html .= "Shipping Type: ".$shipping_type." ".$promo_code." <br /><br /><center>
 		$_SESSION[SALT.'email'] = $_POST['email'];
 		$_SESSION[SALT.'phone'] = $_POST['phone'];
 		
-		$file_open = fopen("cache/$order_number.txt", "w");  //  Write a file with cart HTML
+		/*  WRITE A FILE WITH CART HTML  */
+		
+		$file_open = fopen("cache/$order_number.txt", "w");
 		fwrite($file_open, $this->getOrderEmailHtml());
 		
 		return redirect( 'payment.php?payment_type='.$payment_type );
@@ -347,7 +363,9 @@ $html .= "Shipping Type: ".$shipping_type." ".$promo_code." <br /><br /><center>
 	
 	}
 	
-	if( $this->find($order_id)->promo_code_id ){	/*  IF THERE HAS BEEN A PROMO CODE APPLIED  */
+	/*  IF THERE HAS BEEN A PROMO CODE APPLIED  */
+	
+	if( $this->find($order_id)->promo_code_id ){
 	
 		$discount = $this->promo_code->find($this->find($order_id)->promo_code_id)->percentage;
 		

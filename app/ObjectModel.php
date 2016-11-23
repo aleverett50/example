@@ -1,4 +1,4 @@
-<?php	
+<?php
 
 namespace App;
 
@@ -164,7 +164,7 @@ abstract class ObjectModel
 
 			$values[$field] = $this->$field;
 
-		} else if (isset($_POST[$field])) {
+		} elseif (isset($_POST[$field])) {
 
 			$values[$field] = $_POST[$field];
 
@@ -265,7 +265,7 @@ abstract class ObjectModel
 
 	$query->execute();
 
-	// debug_backtrace() finds what class or method the query came from
+	/*  debug_backtrace() finds what class or method the query came from  */
 
 	if (debug_backtrace()[1]['function'] != 'updateCartWithMemberType' && debug_backtrace()[1]['function'] != 'updateCartWithNoMemberType') {
 

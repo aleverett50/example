@@ -1,4 +1,4 @@
-<?php	
+<?php
 
 namespace App;
 
@@ -94,7 +94,6 @@ class News extends ObjectModel
 	}		
 
     }
-		
 
 
 }

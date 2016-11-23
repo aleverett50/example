@@ -1,4 +1,4 @@
-<?php	
+<?php
 
 namespace App;
 
@@ -67,7 +67,7 @@ class Cart extends ObjectModel
 			
 				$discount = 0.95;
 			
-			} else if( $this->getTotalSpend() >= 100 ){
+			} elseif ( $this->getTotalSpend() >= 100 ){
 			
 				$discount = 0.9;
 			
@@ -200,9 +200,13 @@ class Cart extends ObjectModel
 		$this->quantity = $row->quantity;
 		$query2 = $this->execute("SELECT * FROM products WHERE id = ?  ", [$row->product_id] );
 		
-		if($query2[0]->deleted_at != NULL){ continue; }	/*  DON'T ADD THE PRODUCT IF IT HAS SINCE BEEN DELETED  */
+		/*  DON'T ADD THE PRODUCT IF IT HAS SINCE BEEN DELETED  */
 		
-		$this->cart_price = $query2[0]->price;  			/*  GET THE PRICE OF THE PRODUCT, NOT THE PRICE IT WAS ORIGINALLY BOUGHT FOR, INCASE IT HAS CHANGED  */
+		if($query2[0]->deleted_at != NULL){ continue; }
+		
+		/*  GET THE PRICE OF THE PRODUCT, NOT THE PRICE IT WAS ORIGINALLY BOUGHT FOR, INCASE IT HAS CHANGED  */
+		
+		$this->cart_price = $query2[0]->price;
 		
 		$this->add();
 	
@@ -282,7 +286,7 @@ class Cart extends ObjectModel
 		
 		return $row->id;
 	
-	} else if(isset( $_COOKIE[SALT.'promo_code'] ) && $_COOKIE[SALT.'promo_code'] != '' ) {
+	} elseif (isset( $_COOKIE[SALT.'promo_code'] ) && $_COOKIE[SALT.'promo_code'] != '' ) {
 	
 		$this->table = 'promo_codes';
 		
@@ -310,7 +314,7 @@ class Cart extends ObjectModel
 		
 		return ( 100 - $row->percentage )  / 100;
 	
-	} else if(isset( $_COOKIE[SALT.'promo_code'] ) && $_COOKIE[SALT.'promo_code'] != '' ) {
+	} elseif (isset( $_COOKIE[SALT.'promo_code'] ) && $_COOKIE[SALT.'promo_code'] != '' ) {
 	
 		$this->table = 'promo_codes';
 		
